@@ -6,9 +6,9 @@ const express = require("express");
 const app = express();   //instinsini yasadik.
 const router = require("./router");
 
-//mongodb chaqirish;
-const db = require("./server").db();
-const mongodb = require("mongodb");
+// //mongodb chaqirish;
+// const db = require("./server").db();  //mongoose ga almashtirdik.
+// const mongodb = require("mongodb");
 
 
 // 1: Kirish code
