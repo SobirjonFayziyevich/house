@@ -2,6 +2,9 @@
 const mongoose = require("mongoose");
 const {member_status_enums, member_type_enums} = require("../lib/config");
 
+
+// memberSchema => Schema modellar dey yuritiladi
+let ordinary_enums;
 const memberSchema = new mongoose.Schema({
    mb_nick: {
        type: String,
@@ -35,12 +38,12 @@ const memberSchema = new mongoose.Schema({
             message: "{VALUE} is not among permitted values"
         }
     },
-    mb_full_name: {
+    mb_address: {
        type: String,
         required: false,
     },
-    mb_address: {
-       type: String,
+    mb_description: {
+        type: String,
         required: false,
     },
     mb_image: {
@@ -52,7 +55,38 @@ const memberSchema = new mongoose.Schema({
         required: false,
         default: 0,
     },
-});
+    mb_top: {// restaurant un kerak
+       type: String,
+        required: false,
+        default: 'N',
+        enum: {            //enum bu biz oldindan belgilab oladigan qiymat.
+            values: ordinary_enums,
+            message: "{VALUE} is not among permitted values"
+        },
+    },
+    mb_views: {
+       type: String,
+        required: false,
+        default: 0
+    },
+    mb_likes: {
+        type: String,
+        required: false,
+        default: 0
+    },
+    mb_follow_cnt: {  // men kimgagir follow bulaman.
+        type: String,
+        required: false,
+        default: 0
+    },
+    mb_subscriber: {  // kimdir menga follower buladi.
+        type: String,
+        required: false,
+        default: 0
+    },
+ },
+  {timestamps: true}  //createdAT and updateAT qiymatlarni oladi.
+);
 
 
 

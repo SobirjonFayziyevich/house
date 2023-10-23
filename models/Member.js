@@ -1,5 +1,6 @@
 
-//Modullar Classlar orqali hosil buladi....
+//Modullar Classlar orqali hosil buladi.
+// member modullarni => Server modullar deb yuritamiz.
 class Member {
     constructor() {
     }
