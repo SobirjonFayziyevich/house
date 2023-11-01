@@ -24,7 +24,7 @@ mongoose.connect(
             // console.log(goose);          // tekshirib olish
             const app = require("./app");
             const server = http.createServer(app);
-            let PORT = process.env. PORT || 3000;  //PORTni tekshirsin va PORTda malumot bulsa,
+            let PORT = process.env. PORT || 3001;  //PORTni tekshirsin va PORTda malumot bulsa,
             // usha malumotni saqlasin,bulmsasa 3000ni quysin.
             server.listen(PORT, function () {       //serverni tanlangan PORTda ishga tushirib beradi.
                 console.log(`The server is running successfully on port: ${PORT}, http://localhost:${PORT}`
