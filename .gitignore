@@ -1,2 +1,4 @@
 node_modules
-.env    // env fayli yuklanmasligi uchun shu yerga yashiramiz.
+.env
+.idea
+uploads

@@ -6,7 +6,7 @@ const http = require("http");
 // const mongodb = require("mongodb"); mongoose ga change
 const mongoose = require("mongoose");
 const connectionString = process.env.MONGO_URL;   //MONGO_URL bizga kuchirib beradi.
-
+mongoose.set("strictQuery", false);
     // "mongodb+srv://pirmatovsobir23:KnSHlq9VR0dnUTzc@cluster0.kscois6.mongodb.net/house";  // .env papkasiga utkazib quydik hamma kurolmasligi uchun.
    // mongodb.connect(   //mongodbning connect methodidan foy
 

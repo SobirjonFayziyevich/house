@@ -1,15 +1,16 @@
-
-
-
 console.log("web serverni boshladik");
-const express = require("express");
-const app = express();   //instinsini yasadik.
-const router = require("./router");
+const express= require("express");
+const app=express();
+const router= require("./router");       //router.jsni chaqirib olayopmz.
+const router_bssr= require("./router_bssr");
 
-// //mongodb chaqirish;
-// const db = require("./server").db();  //mongoose ga almashtirdik.
-// const mongodb = require("mongodb");
 
+let session= require("express-session");  // express sessionni chaqirib oldik.
+const MongoDBStore= require("connect-mongodb-session")(session);         // mongodbni storej classini  hosil q.
+const store=new MongoDBStore({                           // MongoDBStore orqali (store) objectini yasadik
+    uri: process.env.MONGO_URL,                                      // MONGO_URL ni process.env ichidan olib berayopmiz
+    collection: "sessions",                                 // session azuntikeyshin  orqali collectionni hosil qilayopmiz
+});
 
 // 1: Kirish code
 // Har qanday browserdan kelayotgan requestlar un public folder ochiq degani.
@@ -20,13 +21,35 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 // 2: Session code
+app.use(
+    session({
+        secret: process.env.SESSION_SECRET,  // secret kodimizni joyladik.
+        cookie: {
+            maxAge: 1000 * 60 * 30,           // malumt 30 minutgacha cookieda aqlanib turadi.
+        },
+        store: store,                         // store storeda saqlansin
+        resave: true,
+        saveUninitialized: true,
+    })
+);
+
+// har bir kelayotgan req un mantiq yozsak.
+app.use(function (req, res, next) {
+    res.locals.member = req.session.member;
+    next();
+})
+
 
 // 3: Views code
 //ejs orqali backend ni ichida frontendni yasash.
 app.set("views", "views");
-app.set("view engine",  "ejs",);
+app.set("view engine", "ejs",);  //ejs - backendda frontendni qurishda yordam beradi.
 
 // 4 Routing code
-app.use("/", router)   //expressga boglaymiz va har qanday kelgan malumotni routerga yuboramiz.
 
-module.exports = app;
+app.use("/resto", router_bssr); // Asosan(ADMINvaRESTAUTANT USER)lari un kerakli loyiha.
+app.use("/", router); //expressga router.js ni bogladik.//XARIDORLAR un kerak bulgan frontend loyihasi.
+
+
+
+module.exports=app;
